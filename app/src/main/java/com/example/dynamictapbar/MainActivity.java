@@ -1,6 +1,7 @@
 package com.example.dynamictapbar;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,15 +20,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnAddTabBar.setOnClickListener(v->{
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(binding.textItem.getText().toString()));
-            binding.textItem.setText("");
+            if (binding.textItem.getText().toString().equals("")){
+                Toast.makeText(this, "Please Write Some Text", Toast.LENGTH_SHORT).show();
+            }else {
+                binding.tabLayout.addTab(binding.tabLayout.newTab().setText(binding.textItem.getText().toString()));
+                binding.textItem.setText("");
+            }
         });
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                binding.tapSection.setText(String.valueOf(tab.getPosition()+1));
+                binding.tapSection.setText(tab.getText().toString());
 
             }
 
